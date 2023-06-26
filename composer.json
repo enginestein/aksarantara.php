@@ -1,0 +1,24 @@
+{
+  "name": "sanskrit/aksarantara",
+  "description": "A sanskrit transliteration framework for PHP.",
+  "keywords": ["transliteration", "romanization", "sanskrit", "devanagari", "itrans", "iast"],
+  "type": "library",
+  "license": "GPL-v3",
+  "authors": [
+    {
+      "name": "Arya Praneil Pritesh",
+      "email": "aryapraneil@gmail.com",
+      "homepage": "https://aryapraneil.com"
+    }
+  ],
+
+  "require": {
+    "php": ">=5.4.8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {"Sanskrit\\": "src/"}
+  }
+}

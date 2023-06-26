@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="tests/bootstrap.php" colors="true">
+  <testsuites>
+    <testsuite name="Aksarantara Test Suite">
+      <file>tests/aksarantaraSetup.php</file>
+      <file>tests/aksarantaraTransliteration.php</file>
+      <file>tests/aksarantaraDravidian.php</file>
+      <file>tests/aksarantaraToggle.php</file>
+      <file>tests/aksarantaraOptions.php</file>
+      <file>tests/aksarantaraITRANS.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>
