@@ -1,23 +1,23 @@
-aksarantara.php
-=============================
+## Aksarantara: Versatile Transliteration Framework for Indian Languages
 
-Introduction
------------------------------
-aksarantara.php is a transliteration library for Indian languages written in PHP. It supports the most popular Indian scripts and several different romanization schemes. Although aksarantara focuses on Sanskrit transliteration, it has partial support for other languages and is easy to extend.
+Aksarantara is a powerful transliteration framework primarily designed for Sanskrit, with additional transliteration features for various Indian languages. It offers multiple versions tailored for different programming languages, making it highly adaptable and versatile.
 
-Requirements
------------------------------
-aksarantara requires PHP 5.4.8 and up. PHP versions before 5.4.8 have a version of `mb_substr()` that is known to be [broken](http://us.php.net/ChangeLog-5.php). These versions will not work with aksarantara.
+### Installation
 
-Usage
------------------------------
-aksarantara is simple to use. 
+To ensure seamless utilization of aksarantara.php, please make sure that your PHP version is 5.4.8 or higher. Earlier versions, particularly those preceding 5.4.8, contain a defective version of `mb_substr()`, as indicated in the [PHP ChangeLog](http://us.php.net/ChangeLog-5.php). Therefore, compatibility issues may arise with aksarantara if used with such versions.
 
-First install the [Composer](http://getcomposer.org) package manager, then install aksarantara with:
+To install aksarantara.php, follow these steps:
 
-    composer require sanskrit/aksarantara
+1. Download [Composer](http://getcomposer.org).
+2. Run the following command in your terminal:
 
-then invoke aksarantara like this:
+   ```terminal
+   composer require sanskrit/aksarantara
+   ```
+
+### Usage
+
+Use the following code snippet to utilize aksarantara.php:
 
 ```php
 <?php
@@ -28,10 +28,10 @@ $aksarantara = new aksarantara();
 $output = $aksarantara->t($input, $from, $to);
 ```
 
-Here, `$from` and `$to` are the names of different **schemes**. In aksarantara, the word "scheme" refers to both scripts and romanizations. These schemes are of two types:
+In the code above, `$from` and `$to` represent the names of different **schemes**. In aksarantara, a scheme refers to both scripts and romanizations. There are two types of schemes available:
 
-1. **Brahmic** schemes, which are *abugidas*. All Indian scripts are Brahmic schemes.
-2. **Roman** schemes, which are *alphabets*. All romanizations are Roman schemes.
+1. **Brahmic** schemes, which are abugidas and encompass all Indian scripts.
+2. **Roman** schemes, which are alphabets and cover various romanizations.
 
 By default, aksarantara supports the following Brahmic schemes:
 
@@ -56,43 +56,67 @@ and the following Roman schemes:
 * `velthuis` (Velthuis)
 * `wx` (WX)
 
-### Disabling transliteration
-When aksarantara sees the token `##`, it toggles the transliteration state:
+### Disabling Transliteration
 
-    $aksarantara->t('ga##Na##pa##te', 'hk', 'devanagari'); // गNaपte
-    $aksarantara->t('ध##र्म##क्षेत्रे', 'devanagari', 'hk'); // dhaर्मkSetre
+To toggle the transliteration state in aksarantara, use the `##` token:
 
-When aksarantara sees the token `\`, it disables transliteration on the character that immediately follows. `\` is used for ITRANS compatibility; we recommend always using `##` instead.
+```php
+$aksarantara->t('ga##Na##pa##te', 'hk', 'devanagari'); // गNaपte
+$aksarantara->t('ध##र्म##क्षेत्रे', 'devanagari', 'hk'); // dhaर्मkSetre
+```
 
-    $aksarantara->t('a \\a', 'itrans', 'devanagari'); // अ a
-    $aksarantara->t('\\##aham', 'itrans', 'devanagari'); // ##अहम्
+If you want to disable transliteration on a specific character, use the `\` token. However, it is recommended to use `##` instead of `\` for better compatibility with ITRANS:
 
-### Transliterating to lossy schemes
-A **lossy** scheme does not have the letters needed to support lossless translation. For example, Bengali is a lossy scheme because it uses `ব` for both `ba` and `va`. In future releases, aksarantara might let you choose how to handle lossiness. For the time being, it makes some fairly bad hard-coded assumptions. Corrections and advice are always welcome.
+```php
+$aksarantara->t('a \\a', 'itrans', 'devanagari'); // अ a
+$aksarantara->t('\\##aham', 'itrans', 'devanagari'); // ##अहम्
+```
 
-### Transliteration options
-You can tweak the transliteration function by passing an `options` array:
+### Transliterating to Lossy Schemes
 
-    $output = $aksarantara->t($input, $from, $to, $options);
+A **lossy** scheme lacks specific letters required for lossless
 
-`$options` maps options to values. Currently, these options are supported:
+ translation. For example, Bengali is a lossy scheme because it uses `ব` for both `ba` and `va`. In future releases, aksarantara may provide options to handle lossiness. For now, it makes some assumptions but welcomes corrections and advice.
 
-* `skip_sgml` - If TRUE, transliterate SGML tags as if they were ordinary words (`<b>iti</b>` → `<ब्>इति</ब्>`). Defaults to `FALSE`.
-* `syncope` - If TRUE, use Hindi-style transliteration (`ajay` → `अजय`). In linguistics, this behavior is known as [schwa syncope](http://en.wikipedia.org/wiki/Schwa_deletion_in_Indo-Aryan_languages). Defaults to `FALSE`.
+### Transliteration Options
 
-Adding new schemes
------------------------------
-Adding a new scheme is simple:
+You can customize the transliteration function by passing an `options` array:
 
-    $aksarantara->addBrahmicScheme($schemeName, $schemeData);
-    $aksarantara->addRomanScheme($schemeName, $schemeData);
+```php
+$output = $aksarantara->t($input, $from, $to, $options);
+```
 
-For help in creating `$schemeData`, see the comments on the `addBrahmicScheme` and `addRomanScheme` functions.
+The `$options` array maps options to their corresponding values. Currently, the following options are supported:
 
-Running tests
------------------------------
-Running tests is facilitated with Composer:
+* `skip_sgml` - If set to `TRUE`, transliterate SGML tags as ordinary words (`<b>iti</b>` → `<ब्>इति</ब्>`). The default value is `FALSE`.
+* `syncope` - If set to `TRUE`, use Hindi-style transliteration (`ajay` → `अजय`). This behavior is known as [schwa syncope](http://en.wikipedia.org/wiki/Schwa_deletion_in_Indo-Aryan_languages) in linguistics. The default value is `FALSE`.
 
-    1. cd /path/to/aksarantara
-    2. composer install
-    3. ./vendor/bin/phpunit
+### Adding New Schemes
+
+Adding a new scheme is a simple process. Use the following functions:
+
+```php
+$aksarantara->addBrahmicScheme($schemeName, $schemeData);
+$aksarantara->addRomanScheme($schemeName, $schemeData);
+```
+
+Refer to the comments on the `addBrahmicScheme` and `addRomanScheme` functions for assistance in creating the `$schemeData` parameter.
+
+### Running Tests
+
+Running tests is made easy with Composer. Follow these steps:
+
+1. Navigate to the `/path/to/aksarantara` directory.
+2. Install Composer dependencies by running the following command:
+
+   ```terminal
+   composer install
+   ```
+
+3. Run the tests using the following command:
+
+   ```terminal
+   ./vendor/bin/phpunit
+   ```
+
+By following these steps, you can ensure that aksarantara is functioning correctly and running as expected.
