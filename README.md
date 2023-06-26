@@ -28,7 +28,7 @@ $aksarantara = new aksarantara();
 $output = $aksarantara->t($input, $from, $to);
 ```
 
-In the code above, `$from` and `$to` represent the names of different **schemes**. In aksarantara, a scheme refers to both scripts and romanizations. There are two types of schemes available:
+In the code above, `$from` and `$to` represent the names of different **schemes**. A scheme refers to romanization. There are two types of scehems in Aksarantara:
 
 1. **Brahmic** schemes, which are abugidas and encompass all Indian scripts.
 2. **Roman** schemes, which are alphabets and cover various romanizations.
