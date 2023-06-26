@@ -1,7 +1,7 @@
 <?php
 
-namespace Sanskrit\aksarantara\Tests;
-use Sanskrit\aksarantara;
+namespace Enginestein\aksarantara\Tests;
+use Enginestein\aksarantara;
 
 abstract class aksarantaraBase extends \PHPUnit_Framework_TestCase {
     protected $aksarantara;

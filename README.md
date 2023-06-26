@@ -22,7 +22,7 @@ Use the following code snippet to utilize aksarantara.php:
 ```php
 <?php
 
-use Sanskrit\aksarantara;
+use Enginestein\aksarantara;
 
 $aksarantara = new aksarantara();
 $output = $aksarantara->t($input, $from, $to);

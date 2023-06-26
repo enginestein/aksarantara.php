@@ -1,5 +1,5 @@
 {
-  "name": "sanskrit/aksarantara",
+  "name": "enginestein/aksarantara",
   "description": "A sanskrit transliteration framework for PHP.",
   "keywords": ["transliteration", "romanization", "sanskrit", "devanagari", "itrans", "iast"],
   "type": "library",

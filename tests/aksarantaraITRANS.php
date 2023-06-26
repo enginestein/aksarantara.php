@@ -1,6 +1,6 @@
 <?php
 
-use Sanskrit\aksarantara\Tests\aksarantaraBase;
+use Enginestein\aksarantara\Tests\aksarantaraBase;
 
 class aksarantaraITRANS extends aksarantaraBase {
 
