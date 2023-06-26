@@ -12,7 +12,7 @@ To install aksarantara.php, follow these steps:
 2. Run the following command in your terminal:
 
    ```terminal
-   composer require sanskrit/aksarantara
+   composer require enginestein/aksarantara
    ```
 
 ### Usage
