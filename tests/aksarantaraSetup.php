@@ -5,8 +5,8 @@ use Enginestein\aksarantara\Tests\aksarantaraBase;
 class aksarantaraSetup extends aksarantaraBase {
 
     public function testSchemeDefinitions() {
-        // Find the typical lengths of each category. We use Devanagari because it
-        // contains every category, including "marks".
+        
+        
         $schemes = $this->aksarantara->schemes;
         $devanagari = &$schemes['devanagari'];
         $lengths = array();
@@ -16,7 +16,7 @@ class aksarantaraSetup extends aksarantaraBase {
 
         foreach ($schemes as $name => &$scheme) {
             foreach ($scheme as $key => $value) {
-                // The virama is distinct from other categories.
+                
                 if ($key !== 'virama') {
                     $this->assertEquals($lengths[$key], count($value), $name . "." . $key);
                 }
@@ -25,8 +25,8 @@ class aksarantaraSetup extends aksarantaraBase {
     }
 
     public function testRomanSchemeMembership() {
-        // Find the typical lengths of each category. We use Devanagari because it
-        // contains every category, including "marks".
+        
+        
         $aksarantara = $this->aksarantara;
         $roman = array('iast', 'itrans', 'hk', 'kolkata', 'slp1', 'velthuis', 'wx');
         $other = array('bengali', 'devanagari', 'gujarati', 'gurmukhi', 'kannada', 'malayalam', 'oriya', 'tamil', 'telugu');

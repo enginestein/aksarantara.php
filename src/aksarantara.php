@@ -4,32 +4,15 @@ namespace Sanskrit;
 
 class aksarantara {
 
-    // Transliteration process option defaults.
     public $defaults = array(
         "skip_sgml" => FALSE,
         "syncope" => FALSE
     );
 
-    /* Schemes
-     * =======
-     * Schemes are of two kinds: "Brahmic" and "roman." "Brahmic" schemes
-     * describe abugida scripts found in India. "Roman" schemes describe
-     * manufactured alphabets that are meant to describe or encode Brahmi
-     * scripts. Abugidas and alphabets are processed by separate algorithms
-     * because of the unique difficulties involved with each.
-     *
-     * Brahmic consonants are stated without a virama. Roman consonants are
-     * stated without the vowel 'a'.
-     *
-     * (Since "abugida" is not a well-known term, aksarantara uses "Brahmic"
-     * and "roman" for clarity.)
-     */
     public $schemes = array(
 
-        /* Bengali
-         * -------
-         * 'va' and 'ba' are both rendered as ব.
-         */
+        // Bengali
+
         "bengali" => array(
             "vowels" => array("অ", "আ", "ই", "ঈ", "উ", "ঊ", "ঋ", "ৠ", "ঌ", "ৡ", "", "এ", "ঐ", "", "ও", "ঔ"),
             "vowel_marks" => array("া", "ি", "ী", "ু", "ূ", "ৃ", "ৄ", "ৢ", "ৣ", "", "ে", "ৈ", "", "ো", "ৌ"),
@@ -40,60 +23,25 @@ class aksarantara {
             "other" => array("", "", "", "", "ড", "ঢ", "", "য", "")
         ),
 
-        /* Devanagari
-         * ----------
-         * The most comprehensive and unambiguous Brahmic script listed.
-         */
+        // Devnagri
+
         "devanagari" => array(
-            // "Independent" forms of the vowels. These are used whenever the
-            // vowel does not immediately follow a consonant.
             "vowels" => array("अ", "आ", "इ", "ई", "उ", "ऊ", "ऋ", "ॠ", "ऌ", "ॡ", "ऎ", "ए", "ऐ", "ऒ", "ओ", "औ"),
-
-            // "Dependent" forms of the vowels. These are used whenever the
-            // vowel immediately follows a consonant. If a letter is not
-            // listed in `vowels`, it should not be listed here.
             "vowel_marks" => array("ा", "ि", "ी", "ु", "ू", "ृ", "ॄ", "ॢ", "ॣ", "ॆ", "े", "ै", "ॊ", "ो", "ौ"),
-
-            // Miscellaneous marks, all of which are used in Sanskrit.
             "other_marks" => array("ं", "ः", "ँ"),
-
-            // In syllabic scripts like Devanagari, consonants have an inherent
-            // vowel that must be suppressed explicitly. We do so by putting a
-            // virama after the consonant.
             "virama" => array("्"),
-
-            // Various Sanskrit consonants and consonant clusters. Every token
-            // here has an explicit vowel. Thus "क" is "ka" instead of "k".
             "consonants" => array("क", "ख", "ग", "घ", "ङ", "च", "छ", "ज", "झ", "ञ", "ट", "ठ", "ड", "ढ", "ण", "त", "थ", "द", "ध", "न", "प", "फ", "ब", "भ", "म", "य", "र", "ल", "व", "श", "ष", "स", "ह", "ळ", "क्ष", "ज्ञ"),
-
-            // Numbers and punctuation
             "symbols" => array("०", "१", "२", "३", "४", "५", "६", "७", "८", "९", "ॐ", "ऽ", "।", "॥"),
-
-            // Zero-width joiner. This is used to separate a consonant cluster
-            // and avoid a complex ligature.
             "zwj" => array("\u200D"),
-
-            // Dummy consonant. This is used in ITRANS to prevert certain types
-            // of parser ambiguity. Thus "barau" -> बरौ but "bara_u" -> बरउ.
             "skip" => array(""),
-
-            // Vedic accent. Udatta and anudatta.
             "accent" => array("\u0951", "\u0952"),
-
-            // Accent combined with anusvara and and visarga. For compatibility
-            // with ITRANS, which allows the reverse of these four.
             "combo_accent" => array("ः॑", "ः॒", "ं॑", "ं॒"),
-
             "candra" => array("ॅ"),
-
-            // Non-Sanskrit consonants
             "other" => array("क़", "ख़", "ग़", "ज़", "ड़", "ढ़", "फ़", "य़", "ऱ")
         ),
 
-        /* Gujarati
-         * --------
-         * Sanskrit-complete.
-         */
+        // Gujrati 
+
         "gujarati" => array(
             "vowels" => array("અ", "આ", "ઇ", "ઈ", "ઉ", "ઊ", "ઋ", "ૠ", "ઌ", "ૡ", "", "એ", "ઐ", "", "ઓ", "ઔ"),
             "vowel_marks" => array("ા", "િ", "ી", "ુ", "ૂ", "ૃ", "ૄ", "ૢ", "ૣ", "", "ે", "ૈ", "", "ો", "ૌ"),
@@ -104,10 +52,8 @@ class aksarantara {
             "candra" => array("ૅ")
         ),
 
-        /* Gurmukhi
-         * --------
-         * Missing R/RR/lR/lRR
-         */
+        // Gurmukhi
+
         "gurmukhi" => array(
             "vowels" => array("ਅ", "ਆ", "ਇ", "ਈ", "ਉ", "ਊ", "", "", "", "", "", "ਏ", "ਐ", "", "ਓ", "ਔ"),
             "vowel_marks" => array("ਾ", "ਿ", "ੀ", "ੁ", "ੂ", "", "", "", "", "", "ੇ", "ੈ", "", "ੋ", "ੌ"),
@@ -118,10 +64,8 @@ class aksarantara {
             "other" => array("", "ਖ", "ਗ", "ਜ", "ਡ", "", "ਫ", "", "")
         ),
 
-        /* Kannada
-         * -------
-         * Sanskrit-complete.
-         */
+        // Kannada
+
         "kannada" => array(
             "vowels" => array("ಅ", "ಆ", "ಇ", "ಈ", "ಉ", "ಊ", "ಋ", "ೠ", "ಌ", "ೡ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ"),
             "vowel_marks" => array("ಾ", "ಿ", "ೀ", "ು", "ೂ", "ೃ", "ೄ", "ೢ", "ೣ", "ೆ", "ೇ", "ೈ", "ೊ", "ೋ", "ೌ"),
@@ -132,10 +76,8 @@ class aksarantara {
             "other" => array("", "", "", "", "", "", "ಫ", "", "ಱ")
         ),
 
-        /* Malayalam
-         * ---------
-         * Sanskrit-complete.
-         */
+        // Malayalam
+
         "malayalam" => array(
             "vowels" => array("അ", "ആ", "ഇ", "ഈ", "ഉ", "ഊ", "ഋ", "ൠ", "ഌ", "ൡ", "എ", "ഏ", "ഐ", "ഒ", "ഓ", "ഔ"),
             "vowel_marks" => array("ാ", "ി", "ീ", "ു", "ൂ", "ൃ", "ൄ", "ൢ", "ൣ", "െ", "േ", "ൈ", "ൊ", "ോ", "ൌ"),
@@ -146,10 +88,8 @@ class aksarantara {
             "other" => array("", "", "", "", "", "", "", "", "റ")
         ),
 
-        /* Oriya
-         * -----
-         * Sanskrit-complete.
-         */
+        // Oriya
+
         "oriya" => array(
             "vowels" => array("ଅ", "ଆ", "ଇ", "ଈ", "ଉ", "ଊ", "ଋ", "ୠ", "ଌ", "ୡ", "", "ଏ", "ଐ", "", "ଓ", "ଔ"),
             "vowel_marks" => array("ା", "ି", "ୀ", "ୁ", "ୂ", "ୃ", "ୄ", "ୢ", "ୣ", "", "େ", "ୈ", "", "ୋ", "ୌ"),
@@ -160,11 +100,8 @@ class aksarantara {
             "other" => array("", "", "", "", "ଡ", "ଢ", "", "ଯ", "")
         ),
 
-        /* Tamil
-         * -----
-         * Missing R/RR/lR/lRR vowel marks and voice/aspiration distinctions.
-         * The most incomplete of the Sanskrit schemes here.
-         */
+        // Tamil
+
         "tamil" => array(
             "vowels" => array("அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "", "", "", "", "எ", "ஏ", "ஐ", "ஒ", "ஓ", "ஔ"),
             "vowel_marks" => array("ா", "ி", "ீ", "ு", "ூ", "", "", "", "", "ெ", "ே", "ை", "ொ", "ோ", "ௌ"),
@@ -175,10 +112,8 @@ class aksarantara {
             "other" => array("", "", "", "", "", "", "", "", "ற")
         ),
 
-        /* Telugu
-         * ------
-         * Sanskrit-complete.
-         */
+        // Telugu
+        
         "telugu" => array(
             "vowels" => array("అ", "ఆ", "ఇ", "ఈ", "ఉ", "ఊ", "ఋ", "ౠ", "ఌ", "ౡ", "ఎ", "ఏ", "ఐ", "ఒ", "ఓ", "ఔ"),
             "vowel_marks" => array("ా", "ి", "ీ", "ు", "ూ", "ృ", "ౄ", "ౢ", "ౣ", "ె", "ే", "ై", "ొ", "ో", "ౌ"),
@@ -189,10 +124,8 @@ class aksarantara {
             "other" => array("", "", "", "", "", "", "", "", "ఱ")
         ),
 
-        /* International Alphabet of Sanskrit Transliteration
-         * --------------------------------------------------
-         * The most "professional" Sanskrit romanization scheme.
-         */
+        // IAST
+
         "iast" => array(
             "vowels" => array("a", "ā", "i", "ī", "u", "ū", "ṛ", "ṝ", "ḷ", "ḹ", "", "e", "ai", "", "o", "au"),
             "other_marks" => array("ṃ", "ḥ", "~"),
@@ -201,14 +134,8 @@ class aksarantara {
             "symbols" => array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "oṃ", "'", "।", "॥")
         ),
 
-        /* ITRANS
-         * ------
-         * One of the first romanization schemes -- and one of the most
-         * complicated. For alternate forms, see the "allAlternates" variable
-         * below.
-         *
-         * '_' is a "null" letter, which allows adjacent vowels.
-         */
+        // ITRANS
+
         "itrans" => array(
             "vowels" => array("a", "A", "i", "I", "u", "U", "RRi", "RRI", "LLi", "LLI", "", "e", "ai", "", "o", "au"),
             "other_marks" => array("M", "H", ".N"),
@@ -223,10 +150,8 @@ class aksarantara {
             "other" => array("q", "K", "G", "z", ".D", ".Dh", "f", "Y", "R")
         ),
 
-        /* Harvard-Kyoto
-         * -------------
-         * A simple 1:1 mapping.
-         */
+        // Harvard-Kyoto
+
         "hk" => array(
             "vowels" => array("a", "A", "i", "I", "u", "U", "R", "RR", "lR", "lRR", "", "e", "ai", "", "o", "au"),
             "other_marks" => array("M", "H", "~",),
@@ -235,19 +160,8 @@ class aksarantara {
             "symbols" => array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "OM", "'", "|", "||")
         ),
 
-        /* National Library at Kolkata
-         * ---------------------------
-         * Apart from using "ē" and "ō" instead of "e" and "o", this scheme is
-         * identical to IAST. ṝ, ḷ, and ḹ are not part of the scheme proper.
-         *
-         * This is defined further below.
-         */
+        // SLP
 
-        /* Sanskrit Library Phonetic Basic
-         * -------------------------------
-         * With one ASCII letter per phoneme, this is the tersest transliteration
-         * scheme in use today and is especially suited to computer processing.
-         */
         "slp1" => array(
             "vowels" => array("a", "A", "i", "I", "u", "U", "f", "F", "x", "X", "", "e", "E", "", "o", "O"),
             "other_marks" => array("M", "H", "~"),
@@ -256,10 +170,8 @@ class aksarantara {
             "symbols" => array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "oM", "'", ".", "..")
         ),
 
-        /* Velthuis
-         * --------
-         * A case-insensitive Sanskrit encoding.
-         */
+        // Velthuis
+
         "velthuis" => array(
             "vowels" => array("a", "aa", "i", "ii", "u", "uu", ".r", ".rr", ".li", ".ll", "", "e", "ai", "", "o", "au"),
             "other_marks" => array(".m", ".h", ""),
@@ -268,10 +180,8 @@ class aksarantara {
             "symbols" => array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "o.m", "'", "|", "||")
         ),
 
-        /* WX
-         * --
-         * As terse as SLP1.
-         */
+        // WX
+
         "wx" => array(
             "vowels" => array("a", "A", "i", "I", "u", "U", "q", "Q", "L", "", "", "e", "E", "", "o", "O"),
             "other_marks" => array("M", "H", "z"),
@@ -281,10 +191,8 @@ class aksarantara {
         ),
     );
 
-    // Set of names of Roman schemes.
     private $romanSchemes = array();
 
-    // Map of alternate encodings.
     private $allAlternates = array(
         "itrans" => array(
             "A" => array("aa"),
@@ -315,7 +223,6 @@ class aksarantara {
         )
     );
 
-    // Object cache.
     private $cache = array();
 
     function __construct() {
@@ -324,56 +231,18 @@ class aksarantara {
         $this->setUpSchemes();
     }
 
-    /**
-     * Work around the lack of Unicode escape sequence decoding in PHP strings.
-     *
-     * @param array $values array of Unicode character constants
-     */
     private function convertUnicodeConstants(&$values) {
         $values = json_decode('["' . implode('","', $values) . '"]');
     }
 
-    /**
-     * Check whether the given scheme encodes romanized Sanskrit.
-     *
-     * @param string $name the scheme name
-     * @return boolean
-     */
     public function isRomanScheme($name) {
         return isset($this->romanSchemes[$name]);
     }
 
-    /**
-     * Add a Brahmic scheme to aksarantara.
-     *
-     * Schemes are of two types: "Brahmic" and "roman". Brahmic consonants
-     * have an inherent vowel sound, but roman consonants do not. This is the
-     * main difference between these two types of scheme.
-     *
-     * A scheme definition is an array that maps a group name to a list of
-     * characters. For illustration, see the "devanagari" scheme at the top of
-     * this file.
-     *
-     * You can use whatever group names you like, but for the best results,
-     * you should use the same group names that aksarantara does.
-     *
-     * @param string $name the scheme name
-     * @param array $scheme the scheme data itself. This should be constructed
-     * as described above.
-     */
     public function addBrahmicScheme($name, &$scheme) {
         $this->schemes[$name] = $scheme;
     }
 
-    /**
-     * Add a roman scheme to aksarantara.
-     *
-     * See the comments on addBrahmicScheme. The "vowel_marks" field can be
-     * omitted.
-     *
-     * @param string $name the scheme name
-     * @param array $scheme the scheme data itself
-     */
     public function addRomanScheme($name, &$scheme) {
         if (!isset($scheme['vowel_marks'])) {
             $scheme['vowel_marks'] = array_slice($scheme['vowels'], 1);
@@ -382,40 +251,24 @@ class aksarantara {
         $this->romanSchemes[$name] = TRUE;
     }
 
-    /**
-     * Create a deep copy of an object, for certain kinds of objects.
-     *
-     * @param array $scheme the scheme to copy
-     * @return array the copy
-     */
     private function cheapCopy(&$scheme) {
         $copy = array();
         foreach ($scheme as $key => $value) {
-            // PHP assignment automatically copies an array $value.
-            // @see http://us2.php.net/manual/en/language.types.array.php
             $copy[$key] = $value;
         }
         return $copy;
     }
 
-    /**
-     * Set up various schemes.
-     */
     private function setUpSchemes() {
-        // Set up roman schemes
         $kolkata = $this->cheapCopy($this->schemes['iast']);
         $kolkata['vowels'] = array("a", "ā", "i", "ī", "u", "ū", "ṛ", "ṝ", "ḷ", "ḹ", "e", "ē", "ai", "o", "ō", "au");
         $this->schemes['kolkata'] = &$kolkata;
 
         $schemeNames = array("iast", "itrans", "hk", "kolkata", "slp1", "velthuis", "wx");
-        // These schemes already belong to $schemes. But by adding
-        // them again with `addRomanScheme`, we automatically build up
-        // `romanSchemes` and define a `vowel_marks` field for each one.
         foreach ($schemeNames as $name) {
             $this->addRomanScheme($name, $this->schemes[$name]);
         }
 
-        // ITRANS variant, which supports Dravidian short 'e' and 'o'.
         $itrans_dravidian = $this->cheapCopy($this->schemes['itrans']);
         $itrans_dravidian['vowels'] = array("a", "A", "i", "I", "u", "U", "Ri", "RRI", "LLi", "LLi", "e", "E", "ai", "o", "O", "au");
         $itrans_dravidian['vowel_marks'] = array_slice($itrans_dravidian['vowels'], 1);
@@ -423,15 +276,6 @@ class aksarantara {
         $this->addRomanScheme('itrans_dravidian', $itrans_dravidian);
     }
 
-    /**
-     * Create a map from every character in `from` to its partner in `to`.
-     * Also, store any "marks" that `from` might have.
-     *
-     * @param string $from input scheme
-     * @param string $to output scheme
-     * @param array $options scheme options
-     * @return array the map
-     */
     private function makeMap($from, $to, &$options) {
         $consonants = array();
         $fromScheme = &$this->schemes[$from];
@@ -497,14 +341,6 @@ class aksarantara {
         );
     }
 
-    /**
-     * Transliterate from a romanized script.
-     *
-     * @param string $data the string to transliterate
-     * @param array $map map data generated from makeMap()
-     * @param array $options transliteration options
-     * @return string the finished string
-     */
     private function transliterateRoman($data, &$map, &$options) {
         $buf = array();
         $consonants = &$map['consonants'];
@@ -519,22 +355,11 @@ class aksarantara {
         $virama = &$map['virama'];
         $dataChars = preg_split('//u', $data, -1, PREG_SPLIT_NO_EMPTY);
         $dataLength = count($dataChars);
-
-        // Transliteration state. It's controlled by these values:
-        // - `$skippingSGML`: are we in SGML?
-        // - `$toggledTrans`: are we in a toggled region?
-        //
-        // We combine these values into a single variable `$skippingTrans`:
-        //
-        // `$skippingTrans` = $skippingSGML || $toggledTrans;
-        //
-        // If (and only if) this value is true, don't transliterate.
         $skippingSGML = FALSE;
         $skippingTrans = FALSE;
         $toggledTrans = FALSE;
 
         for ($i = 0; ($i < $dataLength || $tokenBuffer); $i++) {
-            // Fill the token buffer, if possible.
             $difference = $maxTokenLength - mb_strlen($tokenBuffer, 'UTF-8');
             if ($difference > 0 && $i < $dataLength) {
                 $tokenBuffer .= $dataChars[$i];
@@ -542,8 +367,6 @@ class aksarantara {
                     continue;
                 }
             }
-
-            // Match all token substrings to our map.
             for ($j = 0; $j < $maxTokenLength; $j++) {
                 $token = mb_substr($tokenBuffer, 0, $maxTokenLength - $j, 'UTF-8');
 
@@ -561,9 +384,7 @@ class aksarantara {
                     if ($toRoman) {
                         $buf[] = $letters[$token];
                     } else {
-                        // Handle the implicit vowel. Ignore 'a' and force
-                        // vowels to appear as marks if we've just seen a
-                        // consonant.
+    
                         if ($hadConsonant) {
                             if (isset($marks[$token])) {
                                 $buf[] = $marks[$token];
@@ -587,8 +408,6 @@ class aksarantara {
                     }
                     $buf[] = $token;
                     $tokenBuffer = mb_substr($tokenBuffer, 1, NULL, 'UTF-8');
-                    // 'break' is redundant here, "$j == ..." is true only on
-                    // the last iteration.
                 }
             }
         }
@@ -598,14 +417,6 @@ class aksarantara {
         return implode('', $buf);
     }
 
-    /**
-     * Transliterate from a Brahmic script.
-     *
-     * @param string $data the string to transliterate
-     * @param array $map map data generated from makeMap()
-     * @param array $options transliteration options
-     * @return string the finished string
-     */
     private function transliterateBrahmic($data, &$map, &$options) {
         $buf = array();
         $consonants = &$map['consonants'];
@@ -618,7 +429,6 @@ class aksarantara {
         $dataChars = preg_split('//u', $data, -1, PREG_SPLIT_NO_EMPTY);
 
         foreach ($dataChars as $L) {
-            // Toggle transliteration state
             if ($L === '#') {
                 if ($danglingHash) {
                     $skippingTrans = !$skippingTrans;
@@ -649,8 +459,6 @@ class aksarantara {
                     $hadRomanConsonant = FALSE;
                 }
 
-                // Push transliterated letter if possible. Otherwise, push
-                // the letter itself.
                 if (isset($letters[$L]) && $letters[$L] !== '') {
                     $buf[] = $letters[$L];
                     $hadRomanConsonant = $toRoman && isset($consonants[$L]);
@@ -665,31 +473,17 @@ class aksarantara {
         return implode('', $buf);
     }
 
-    /**
-     * Transliterate from one script to another.
-     *
-     * @param string $data the string to transliterate
-     * @param string $from the source script
-     * @param string $to the destination script
-     * @param array $options  transliteration options
-     * @return string the finished string
-     */
     public function t($data, $from, $to, $options = NULL) {
         $options = isset($options) ? $options : array();
         $cachedOptions = isset($this->cache['options']) ? $this->cache['options'] : array();
         $hasPriorState = (isset($this->cache['from']) && $this->cache['from'] === $from && isset($this->cache['to']) && $this->cache['to'] === $to);
 
-        // Here we simultaneously build up an `options` object and compare
-        // these options to the options from the last run.
         foreach ($this->defaults as $key => $value) {
             if (isset($options[$key])) {
                 $value = $options[$key];
             }
             $options[$key] = $value;
 
-            // This comparison method is not generalizable, but since these
-            // objects are associative arrays with identical keys and with
-            // values of known type, it works fine here.
             if (!isset($cachedOptions[$key]) || $value !== $cachedOptions[$key]) {
                 $hasPriorState = FALSE;
             }
@@ -707,7 +501,6 @@ class aksarantara {
             );
         }
 
-        // Easy way out for "{\m+}", "\", and ".h".
         if ($from === 'itrans') {
             $data = preg_replace("/\{\\\m\+\}/u", ".h.N", $data);
             $data = preg_replace("/\.h/u", "", $data);
@@ -721,4 +514,3 @@ class aksarantara {
         }
     }
 }
-

@@ -3,7 +3,7 @@
   "description": "A sanskrit transliteration framework for PHP.",
   "keywords": ["transliteration", "romanization", "sanskrit", "devanagari", "itrans", "iast"],
   "type": "library",
-  "license": "GPL-3.0",
+  "license": "GPL-v3",
   "authors": [
     {
       "name": "Arya Praneil Pritesh",

@@ -4,14 +4,6 @@ use Enginestein\aksarantara\Tests\aksarantaraBase;
 
 class aksarantaraTransliteration extends aksarantaraBase {
 
-    /* Letter transliteration tests
-     * ----------------------------
-     * Basic checks on letters and symbols.
-     *
-     * @param from  the source data
-     * @param to    the destination data
-     * @param f     the function to use
-     */
     protected function letterTests(&$from, &$to, $f) {
         $f($from['vowels'], $to['vowels'], 'Vowels');
         $f($from['marks'], $to['marks'], 'Marks');
@@ -20,14 +12,7 @@ class aksarantaraTransliteration extends aksarantaraBase {
         $f($from['symbols'], $to['symbols'], 'Symbols and punctuation');
     }
 
-    /* Text transliteration tests
-     * --------------------------
-     * Basic checks on words and sentences.
-     *
-     * @param from  the source data
-     * @param to    the destination data
-     * @param f     the function to use
-     */
+   
     protected function textTests(&$from, &$to, $f) {
         $f($from['putra'], $to['putra'], 'Single word');
         $f($from['naraIti'], $to['naraIti'], 'Two words, one with explicit vowel');
@@ -51,7 +36,7 @@ class aksarantaraTransliteration extends aksarantaraBase {
         $this->letterTests($from, $to, $f);
         $this->textTests($from, $to, $f);
 
-        // Other
+        
         $f('wwॠww', 'wwRRww', 'Vowel among other letters');
         $f('wwकww', 'wwkaww', 'Consonant among other letters');
     }
@@ -68,8 +53,8 @@ class aksarantaraTransliteration extends aksarantaraBase {
         $from = $this->data['devanagari'];
         $to = $this->data['gurmukhi'];
         $f = $this->transHelper('devanagari', 'gurmukhi');
-        $f('अ आ इ ई उ ऊ ए ऐ ओ औ', $to['vowels'], 'Vowels'); // no ऋ/ॠ/ऌ/ॡ
-        $f('क खा गि घी ङु चू टे ठै डो ढौ णं तः थ्', $to['marks'], 'Marks'); // no ऋ/ॠ/ऌ/ॡ
+        $f('अ आ इ ई उ ऊ ए ऐ ओ औ', $to['vowels'], 'Vowels'); 
+        $f('क खा गि घी ङु चू टे ठै डो ढौ णं तः थ्', $to['marks'], 'Marks'); 
         $f($from['consonants'], $to['consonants'], 'Stops and nasals');
         $f($from['other'], $to['other'], 'Other consonants');
         $f($from['symbols'], $to['symbols'], 'Symbols and punctuation');
@@ -77,7 +62,7 @@ class aksarantaraTransliteration extends aksarantaraBase {
     }
 
     public function testDevanagariToKannada() {
-        // Letters
+        
         $from = $this->data['devanagari'];
         $to = $this->data['kannada'];
         $f = $this->transHelper('devanagari', 'kannada');
@@ -98,7 +83,7 @@ class aksarantaraTransliteration extends aksarantaraBase {
         $to = $this->data['oriya'];
         $f = $this->transHelper('devanagari', 'oriya');
         $f($from['vowels'], $to['vowels'], 'Vowels');
-        $f('क खा गि घी ङु चू छृ जॄ टे ठै डो ढौ णं तः थ्', $to['marks'], 'Marks'); // no ऌ or ॡ
+        $f('क खा गि घी ङु चू छृ जॄ टे ठै डो ढौ णं तः थ्', $to['marks'], 'Marks'); 
         $f($from['consonants'], $to['consonants'], 'Stops and nasals');
         $f($from['other'], $to['other'], 'Other consonants');
         $f($from['symbols'], $to['symbols'], 'Symbols and punctuation');
