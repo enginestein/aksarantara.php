@@ -109,7 +109,3 @@ To run tests, Follow these steps:
    ```terminal
    ./vendor/bin/phpunit
    ```
-
-# To Do
-
-- Managing lossy schemes 
