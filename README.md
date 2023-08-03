@@ -33,50 +33,41 @@ In the code above, `$from` and `$to` represent the names of different **schemes*
 1. **Brahmic** schemes, which are abugidas and encompass all Indian scripts.
 2. **Roman** schemes, which are alphabets and cover various romanizations.
 
-By default, aksarantara supports the following Brahmic schemes:
+Aksarantara supports the following Brahmic and Abrahmic schemes:
 
-* `bengali`
-* `devanagari`
-* `gujarati`
-* `gurmukhi`
-* `kannada`
-* `malayalam`
-* `oriya`
-* `tamil`
-* `telugu`
+- bengali
+- devanagari
+- gujarati
+- gurmukhi
+- kannada
+- malayalam
+- oriya
+- tamil
+- telugu
+- hk (Harvard-Kyoto)
+- iast (International Alphabet of Sanskrit Transliteration)
+- itrans (ITRANS)
+- itrans_dravidian (ITRANS with support for Dravidian short "e" and "o")
+- kolkata (National Library at Kolkata)
+- slp1 (Sanskrit Library Phonetic Basic)
+- velthuis (Velthuis)
+- wx (WX)
 
-and the following Roman schemes:
-
-* `hk` (Harvard-Kyoto)
-* `iast` (International Alphabet of Sanskrit Transliteration)
-* `itrans` (ITRANS)
-* `itrans_dravidian` (ITRANS with support for Dravidian short "e" and "o")
-* `kolkata` (National Library at Kolkata)
-* `slp1` (Sanskrit Library Phonetic Basic)
-* `velthuis` (Velthuis)
-* `wx` (WX)
-
-### Disabling Transliteration
+### Disabling Transliteration in a text
 
 To toggle the transliteration state in aksarantara, use the `##` token:
 
 ```php
-$aksarantara->t('ga##Na##pa##te', 'hk', 'devanagari'); // गNaपte
-$aksarantara->t('ध##र्म##क्षेत्रे', 'devanagari', 'hk'); // dhaर्मkSetre
+$aksarantara->t('na##ma##s##te', 'hk', 'devanagari'); // नमMaस्te
+$aksarantara->t('वा##स्##तु', 'devanagari', 'hk'); // vaस्tu
 ```
 
-If you want to disable transliteration on a specific character, use the `\` token. However, it is recommended to use `##` instead of `\` for better compatibility with ITRANS:
+If you want to disable transliteration on a specific character, use the `\` token. However, it is recommended to use `##` instead of `\`:
 
 ```php
 $aksarantara->t('a \\a', 'itrans', 'devanagari'); // अ a
-$aksarantara->t('\\##aham', 'itrans', 'devanagari'); // ##अहम्
+$aksarantara->t('\\##om', 'itrans', 'devanagari'); // ##ॐ
 ```
-
-### Transliterating to Lossy Schemes
-
-A **lossy** scheme lacks specific letters required for lossless
-
- translation. For example, Bengali is a lossy scheme because it uses `ব` for both `ba` and `va`. In future releases, aksarantara may provide options to handle lossiness. For now, it makes some assumptions but welcomes corrections and advice.
 
 ### Transliteration Options
 
@@ -104,7 +95,7 @@ Refer to the comments on the `addBrahmicScheme` and `addRomanScheme` functions f
 
 ### Running Tests
 
-Running tests is made easy with Composer. Follow these steps:
+To run tests, Follow these steps:
 
 1. Navigate to the `/path/to/aksarantara` directory.
 2. Install Composer dependencies by running the following command:
@@ -119,4 +110,6 @@ Running tests is made easy with Composer. Follow these steps:
    ./vendor/bin/phpunit
    ```
 
-By following these steps, you can ensure that aksarantara is functioning correctly and running as expected.
+# To Do
+
+- Managing lossy schemes 
